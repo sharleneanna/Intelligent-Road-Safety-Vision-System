@@ -26,15 +26,43 @@ This project is part of the **AICTE Edunet Internship (AI/ML in Automotive)** in
 | 🔗 **Full ML Workflow** | Dataset → Inference → Risk Metrics → Visualization → UI. | End-to-end AI engineering pipeline. |
 
 ---
-
 ## 🧩 System Workflow  
 
-```mermaid
-graph TD
-    A[📦 IDD Dataset (KaggleHub)] --> B[🚘 YOLOv8n Inference]
-    B --> C[⚙️ Risk Scoring Engine]
-    C --> D[📊 CSV + Plots Generation]
-    C --> E[🧩 Gradio Dashboard Interface]
-    E --> F[👀 User Visualization & Interaction]
+**Step-by-step process of the Intelligent Road Safety Vision System**
+
+1. **Dataset Collection (IDD Dataset via KaggleHub)**  
+   The project uses the *Indian Driving Dataset (IDD)* — a real-world collection of urban road scenes from India.
+
+2. **Object Detection using YOLOv8**  
+   The YOLOv8 model detects vehicles, pedestrians, traffic lights, and other road entities from each frame.
+
+3. **Risk Scoring Engine**  
+   Each detected object is analyzed for proximity, zone position, motion, and class type to calculate a real-time risk score (0–100).
+
+4. **Data Logging & Visualization**  
+   All detection results and risk scores are logged into a CSV file for analysis.  
+   Matplotlib plots display trends such as risk levels and traffic density.
+
+5. **Interactive Dashboard (Gradio)**  
+   A Gradio interface allows users to upload a video, run detection, and visualize annotated results and graphs directly in the browser.
+
+6. **User Interaction**  
+   Users can test different videos, compare results, and explore analytics interactively without needing to run code manually.
+
+---
+
+## 🔮 Future Extension (Planned – Week 3)
+
+- **Driver Drowsiness Detection (via MediaPipe)** – Detect driver fatigue using webcam-based eye aspect ratio tracking.  
+- **Multimodal Fusion** – Combine environment risk + driver state for holistic accident-risk assessment.  
+- **LLM-based Report Generation** – Use an LLM (Hugging Face GPT) to generate short natural-language “Accident Risk Reports.”  
+- **Unified Dashboard** – Merge both driver and road analytics into a single intelligent safety dashboard.
+
+---
+
+✅ **In summary:**  
+The system integrates object detection, risk analytics, and interactive visualization to create an early-stage **AI-powered Advanced Driver Assistance System (ADAS)** prototype.
+
+
 
 
