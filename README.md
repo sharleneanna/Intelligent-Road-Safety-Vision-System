@@ -31,8 +31,9 @@ This project is part of the **AICTE Edunet Internship (AI/ML in Automotive)** in
 
 ```mermaid
 graph TD
-A[IDD Dataset (KaggleHub)] --> B[YOLOv8n Inference]
-B --> C[Risk Scoring Engine]
-C --> D[CSV + Plots]
-C --> E[Gradio Dashboard]
-E --> F[User Visualization]
+    A[📦 IDD Dataset (KaggleHub)] --> B[🚘 YOLOv8n Inference]
+    B --> C[⚙️ Risk Scoring Engine]
+    C --> D[📊 CSV + Plots Generation]
+    C --> E[🧩 Gradio Dashboard Interface]
+    E --> F[👀 User Visualization & Interaction]
+
