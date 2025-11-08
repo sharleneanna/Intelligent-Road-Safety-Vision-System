@@ -1,39 +1,38 @@
-### Intelligent Road Safety Vision System  
-*AICTE - Shell - Edunet Foundation Internship (AI/ML in Automotive)*
+# 🚗 AutoSafeDrive AI – Intelligent Road Safety Vision System  
+**AICTE × Shell × Edunet Foundation Internship (AI/ML in Automotive)**  
+Developed by **Sharlene Anna Pereira**
 
 ---
 
-## Overview
-An intelligent road-safety assistant built using computer vision and pretrained deep learning models.  
-It analyzes road footage to detect vehicles, pedestrians, and obstacles — providing the foundation for an AI-driven driver-assistance system.
+## 📘 Overview  
+**AutoSafeDrive AI** is an intelligent vision-based assistant that analyzes real road environments and estimates driving risk levels using deep learning.  
+Powered by **YOLOv8 (Ultralytics)**, it detects vehicles, pedestrians, and road hazards, computes risk levels, and displays visual safety alerts — forming a prototype for an AI-powered Advanced Driver Assistance System (ADAS).
+
+This project is part of the **AICTE Edunet Internship (AI/ML in Automotive)** initiative and represents the **Week 2 milestone (90% completion)**.
 
 ---
 
-## Week 1 Milestone – Base Object Detection
-✅ Setup YOLOv8 pretrained model (Ultralytics)  
-✅ Test on sample image `road_scene.jpg` and video `road_video.mp4`  
-✅ Generate detection outputs and store results locally
+## 🧠 Features (Week 2 PRO Build)
+
+| Feature | Description | Why It’s Impressive |
+|----------|--------------|--------------------|
+| 🚘 **Zero-Shot Object Detection** | Pretrained YOLOv8n detects cars, buses, trucks, bikes, pedestrians, and traffic lights. | Fast & transferable — no extra labeling required. |
+| 📦 **Indian Driving Dataset (IDD)** | Uses real Indian traffic data from Kaggle’s *New IDD Dataset*. | Localized data → realistic Indian road conditions. |
+| ⚠️ **Dynamic Risk Estimation** | Calculates proximity-based risk for each object and overall scene. | Converts perception → analytics → safety logic. |
+| 🟥 **Visual Risk Overlay** | Color-coded safety zones: Green (Safe), Yellow (Caution), Red (Danger). | Easy to understand for drivers & evaluators. |
+| 📊 **Risk Analytics Dashboard** | Auto-generates histograms & CSV logs for analysis. | Demonstrates applied data-driven decision making. |
+| 🧩 **Gradio Web App** | Interactive interface for live demos & image uploads. | User-friendly and deployable for real-world use. |
+| 🖼️ **Pre-Annotated Samples** | Automatically generates annotated IDD frames. | Instant visual proof-of-concept. |
+| 🔗 **Full ML Workflow** | Dataset → Inference → Risk Metrics → Visualization → UI. | End-to-end AI engineering pipeline. |
 
 ---
 
-## Tech Stack
-- **Python 3.x**
-- **YOLOv8** (Ultralytics)
-- **OpenCV**
-- **Hugging Face Transformers** *(future integration for risk analysis)*
-- **Google Colab / Jupyter Notebook**
+## 🧩 System Workflow  
 
----
-
-## Future Scope
-**Week 2:**  
-- Add traffic density estimation  
-- Introduce near-miss detection and alerts  
-
-**Week 3 (Final):**  
-- Integrate with LLM for “Accident Risk Report” generation  
-- Develop a presentation and finalize the demo  
-
----
-
-
+```mermaid
+graph TD
+A[IDD Dataset (KaggleHub)] --> B[YOLOv8n Inference]
+B --> C[Risk Scoring Engine]
+C --> D[CSV + Plots]
+C --> E[Gradio Dashboard]
+E --> F[User Visualization]
