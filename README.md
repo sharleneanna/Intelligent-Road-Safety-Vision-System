@@ -1,216 +1,195 @@
+# 🚗 AutoSafeDrive ADAS
 
-# AutoSafeDrive AI – Intelligent Road Safety Vision System
+### **Intelligent Road Safety Vision System using YOLOv8 + Risk Estimation**
 
-AICTE × Shell × Edunet Foundation Internship (AI/ML in Automotive)
-Developed by: **Sharlene Anna Pereira**
+AutoSafeDrive ADAS is an AI-powered visual perception system that analyzes real-world road scenes and estimates driving risk using object detection and an intelligent risk scoring engine.
+This project is built as part of the **AICTE × Shell × Edunet Foundation – AI/ML in Automotive Internship**.
+
+🔥 **This repository contains the final submission version with:**
+
+* YOLOv8-based object detection
+* Risk scoring engine
+* Vulnerable road-user emphasis
+* Automatic dataset loading (Kaggle Hub)
+* Batch evaluation & analytics
+* Clean annotated outputs
+* Interactive Gradio web app
+* End-to-end Colab-ready script
 
 ---
 
-## Overview
+## 📌 Project Overview
 
-AutoSafeDrive AI is a complete computer-vision–based Advanced Driver Assistance System (ADAS) prototype.
-It analyzes road scenes using deep learning and classical computer vision to detect objects, track vehicle movement, detect lanes, estimate risk, and predict potential collision danger.
+Modern Advanced Driver Assistance Systems (ADAS) rely on computer vision to understand the environment around a vehicle.
+**AutoSafeDrive ADAS** simulates such perception using deep learning—detecting road users (cars, trucks, pedestrians, cyclists, etc.) and estimating scene-level risk.
 
-Built using YOLOv8, OpenCV, object tracking, lane detection, and a multi-factor ADAS risk engine, this system demonstrates how modern autonomous vehicles perceive and understand their surroundings.
+The system is built for real-time insights and research use-cases, focusing on:
 
-This project represents an extended and enhanced version of the Week 2 milestone of the AICTE × Shell × Edunet Foundation Internship (AI/ML in Automotive).
+* Threat recognition
+* Collision-risk evaluation
+* Road safety analysis
+* Visual decision support
 
 ---
 
-## Key Features
+# 🧠 Features
 
-### 1. Zero-Shot Object Detection (YOLOv8)
+| Feature                               | Description                                                                               |
+| ------------------------------------- | ----------------------------------------------------------------------------------------- |
+| **🚘 Object Detection (YOLOv8)**      | Detects cars, bikes, buses, pedestrians, trucks, and traffic lights.                      |
+| **⚠️ Dynamic Risk Estimation**        | Computes risk based on object size (proximity), vulnerability, and bounding box position. |
+| **🟥 Visual Annotations**             | Color-coded bounding boxes: Green (Safe), Yellow (Caution), Red (Danger).                 |
+| **📊 Batch Evaluation & Analytics**   | Generates annotated dataset, CSV logs, and risk histogram.                                |
+| **📦 Automatic IDD Dataset Download** | Fetches the Indian Driving Dataset using KaggleHub.                                       |
+| **🖥️ Gradio Web App**                | User-friendly UI for interactive image analysis.                                          |
+| **🔧 Lightweight Tracking**           | Maintains detection consistency using simple IoU tracking.                                |
+| **🎯 One-Cell Colab Execution**       | Fully runnable in a single notebook cell.                                                 |
 
-Detects:
+---
 
-* Cars, trucks, buses
-* Motorcycles and bicycles
+# 📂 Project Structure
+
+```
+AutoSafeDrive/
+│
+├── autosafedrive_outputs/
+│   ├── annot_*           # Annotated images
+│   ├── eval_*.csv        # Risk scoring log
+│   └── risk_hist.png     # Risk distribution plot
+│
+├── data/
+│   └── idd/              # Downloaded IDD dataset (via KaggleHub)
+│
+└── AutoSafeDrive_Final.ipynb  # Full one-cell script
+```
+
+---
+
+# 🛠️ How It Works
+
+### 1. **Dataset Handling**
+
+The script automatically downloads the **Indian Driving Dataset (IDD)** using KaggleHub.
+A small subset (20 images) is prepared for evaluation.
+
+### 2. **YOLOv8 Object Detection**
+
+Using `yolov8n.pt`, the system detects:
+
+* Cars
+* Trucks
+* Buses
+* Motorcycles
+* Bicycles
 * Pedestrians
 * Traffic lights
-* Autorickshaws (via COCO motorcycle class)
 
-No training required; uses pretrained YOLOv8n.
+### 3. **Risk Engine**
 
-### 2. Multi-Factor ADAS Risk Engine
+Risk = f(proximity, vulnerability)
 
-A custom risk engine computes a score based on:
+* **Close objects → higher risk**
+* **Pedestrians, bicycles, motorcycles → extra risk +15**
+* Risk scale:
 
-* Object proximity
-* Estimated distance
-* Vulnerable road users (pedestrians, cyclists, motorcyclists)
-* Object tracking and relative approach speed
-* Time-To-Collision (TTC) estimation
-* Lane deviation
-* Overall scene context
+  * **0–35:** SAFE
+  * **36–65:** CAUTION
+  * **66–100:** DANGER
 
-Final risk output is categorized as:
+### 4. **Annotation System**
 
-* SAFE
-* CAUTION
-* DANGER
+The pipeline draws:
 
-### 3. Lane Detection and Lane Offset
+* Bounding boxes
+* Class + confidence
+* Per-object risk
+* Overall risk banner on the image
 
-Performs detection of:
+### 5. **Batch Evaluation**
 
-* Lane lines
-* Road boundaries
-* Vehicle’s displacement from lane center
+Generates:
 
-Uses Canny edge detection and Hough line transform.
+* Annotated images
+* eval.csv
+* Histogram for risk distribution
 
-### 4. Object Tracking
+### 6. **Gradio Demo**
 
-Implements a lightweight Intersection-over-Union (IoU) tracker:
-
-* Assigns unique IDs to detected objects
-* Tracks movement across frames
-* Estimates approach or retreat speed
-
-### 5. Batch Evaluation and Analytics
-
-Automatically processes dataset images and generates:
-
-* Annotated output frames
-* CSV file containing risk values
-* Risk distribution histogram
-* Status (SAFE/CAUTION/DANGER) distribution chart
-
-### 6. Gradio ADAS Demo Interface
-
-A real-time interactive dashboard allowing users to:
-
-* Upload custom road images
-* Analyze IDD samples
-* View detection, tracking, lane results, and risk metrics
-* Interact without running any additional code
-
-### 7. Automatic End-to-End Execution
-
-The submission script:
-
-* Downloads the dataset
-* Prepares subsets
-* Runs detection
-* Generates analytics
-* Saves all files
-* Launches the ADAS dashboard
-* Writes a submission-ready README automatically
+Interactive web interface to upload images and see real-time ADAS annotations.
 
 ---
 
-## System Workflow
+# 📸 Example Output
 
-1. Dataset Collection
-   Uses the Indian Driving Dataset (IDD) hosted on Kaggle. Contains complex, real-world Indian traffic scenarios.
-
-2. Object Detection
-   YOLOv8 identifies road entities such as vehicles, pedestrians, and traffic signals.
-
-3. Lane Detection
-   Classical computer vision methods detect lane boundaries and compute vehicle drift.
-
-4. Object Tracking
-   Moving objects are tracked across frames and assigned consistent IDs.
-
-5. Risk Scoring
-   Computes an overall risk score for each frame using proximity, speed, distance, TTC, lane offset, and vulnerable road user prioritization.
-
-6. Logging and Visualization
-   Saves CSV logs, plots, and annotated frames for analysis.
-
-7. Gradio ADAS Interface
-   Provides an interactive way to test images and view the system’s predictions.
+> *(You can upload sample annotated outputs from autosafedrive_outputs/ once you run the script.)*
 
 ---
 
-## Dataset Used: Indian Driving Dataset (IDD)
+# ▶️ Run Locally or on Colab
 
-Contains real images of Indian road scenarios with:
+### **Google Colab (Recommended)**
 
-* Dense traffic
-* Autorickshaws
-* Pedestrians
-* Variable lighting
-* Complex road conditions
+1. Open a new notebook
+2. Paste the full one-cell script from this repo
+3. Run
+4. Gradio demo auto-launches
 
-Dataset Source:
-[https://www.kaggle.com/datasets/mitanshuchakrawarty/new-idd-dataset](https://www.kaggle.com/datasets/mitanshuchakrawarty/new-idd-dataset)
+### Requirements
 
----
-
-## Technology Stack
-
-* Python
-* Ultralytics YOLOv8
-* OpenCV
-* NumPy
-* Pandas
-* Matplotlib
-* Gradio
-* KaggleHub
+```
+ultralytics
+opencv-python-headless
+pandas
+matplotlib
+tqdm
+gradio
+kagglehub
+```
 
 ---
 
-## How to Run (Google Colab)
+# 🧪 Risk Formula (Simplified)
 
-1. Open Google Colab
-2. Paste the complete AutoSafeDrive ADAS script into a single cell
-3. Run the cell
+```
+proximity = (bbox_height / image_height) * 100
+vulnerable_bonus = 15 if class in ["person","bicycle","motorcycle"]
+risk = prox*0.6 + vulnerable_bonus
+risk = clipped to [0,100]
+```
 
-The script will automatically:
-
-* Download the dataset
-* Prepare data
-* Run evaluations
-* Launch the ADAS demo
-* Save analytics in `/content/autosafedrive_outputs/`
-
-No manual steps required.
+This produces realistic near-collision indicators for ADAS-like systems.
 
 ---
 
-## Output Files Generated
+# 🚀 Results
 
-* Annotated road scene images
-* Detailed risk CSV file
-* Risk histogram
-* Safety status bar chart
-* Submission README
+### ✔ 100% automated pipeline
 
----
+### ✔ Strong ADAS logic
 
-## Applications
+### ✔ Professional annotated outputs
 
-* Driver-assistance prototypes
-* Autonomous vehicle perception research
-* Collision prediction systems
-* Lane-keeping support
-* Academic and industry demonstrations
+### ✔ Accurate risk distribution
+
+### ✔ Easy to demonstrate in viva/interview
 
 ---
 
-## Future Scope
+# 📘 Future Improvements
 
-* Bird’s Eye View (BEV) transformation
-* Depth estimation using MiDaS or DPT
-* Trajectory prediction
-* Driver drowsiness and distraction detection
-* Steering angle estimation
-* Real-time video inference
-* YOLOv8 fine-tuning on IDD
-
----
-
-## Acknowledgements
-
-* Ultralytics YOLOv8 team
-* IDD dataset contributors
-* OpenCV community
-* KaggleHub
-* AICTE × Edunet × Shell Internship Program
+* Driver drowsiness detection
+* Lane segmentation using deep models
+* Distance estimation through monocular depth
+* Video-based temporal risk prediction
+* Multi-frame collision prediction (TTC-based)
+* On-device optimization (TensorRT/ONNX)
 
 ---
 
-## End of README
+# 🙋‍♀️ Author
+
+**Sharlene Anna Pereira**
+AI/ML in Automotive (AICTE × Shell × Edunet Foundation)
+B.Tech CSE (AIML)
+
 ---
